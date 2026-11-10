@@ -37,7 +37,7 @@
     next.disabled = index >= total - VISIBLE;
   }
 
-  prev.addEventListener('click', function () { go(-1); });
-  next.addEventListener('click', function () { go(1); });
+  prev.addEventListener('click', function () { go(-2); });
+  next.addEventListener('click', function () { go(2); });
   go(0);
 })();
