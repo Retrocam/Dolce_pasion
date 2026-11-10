@@ -1,0 +1,227 @@
+/* ==========================================================================
+   Dolce Pasión · estilos
+   Orden: variables → base → layout → componentes → responsive
+   ========================================================================== */
+
+/* ---------- Variables ---------- */
+:root {
+  --color-bg: #fff;
+  --color-ocre: #c8902e;
+  --color-ocre-soft: #f6e7c8;
+  --color-brown: #4a2c17;
+  --color-wa: #25d366;
+
+  --font-title: 'Great Vibes', 'Brush Script MT', cursive;
+  --font-body: 'Lato', Georgia, sans-serif;
+
+  --header-h: 64px;
+  --radius: 16px;
+  --space: clamp(16px, 5vw, 48px);
+}
+
+/* ---------- Base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-h) + env(safe-area-inset-top, 0px));
+  color-scheme: light;
+}
+
+body {
+  margin: 0;
+  padding-top: env(safe-area-inset-top, 0px);
+  background: var(--color-bg);
+  color: var(--color-brown);
+  font-family: var(--font-body);
+  line-height: 1.6;
+}
+
+img { max-width: 100%; display: block; }
+h1, h2, h3, p, ul { margin: 0; }
+ul { padding: 0; list-style: none; }
+
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0);
+}
+
+/* ---------- Layout ---------- */
+.section {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: clamp(40px, 8vw, 64px) var(--space);
+}
+.section--center { text-align: center; }
+.section p + p { margin-top: 12px; }
+
+.section__title {
+  font-family: var(--font-title);
+  font-weight: 400;
+  font-size: clamp(2.2rem, 7vw, 2.8rem);
+  color: var(--color-ocre);
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+/* ---------- Header ---------- */
+.header {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 20;
+  min-height: var(--header-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px var(--space);
+  background: var(--color-bg);
+  border-bottom: 2px solid var(--color-ocre-soft);
+}
+
+.brand { display: flex; align-items: center; gap: 8px; text-decoration: none; }
+.brand__img { width: 44px; height: 44px; border-radius: 50%; }
+.brand__name { font-family: var(--font-title); font-size: 2rem; color: var(--color-ocre); }
+
+.nav { display: flex; gap: 20px; }
+.nav a { color: var(--color-brown); text-decoration: none; font-weight: 700; font-size: .95rem; }
+.nav a:hover { color: var(--color-ocre); }
+
+/* Botón hamburguesa (oculto en escritorio) */
+.menu-toggle {
+  display: none;
+  width: 44px; height: 44px;
+  padding: 10px;
+  border: 0; background: transparent; cursor: pointer;
+  flex-direction: column; justify-content: space-between;
+}
+.menu-toggle span {
+  display: block; height: 3px; width: 100%;
+  background: var(--color-brown); border-radius: 2px;
+  transition: transform .3s, opacity .3s;
+}
+.menu-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(10px) rotate(45deg); }
+.menu-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.menu-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-10px) rotate(-45deg); }
+
+/* ---------- Hero ---------- */
+.hero {
+  padding: clamp(24px, 6vw, 48px) var(--space) clamp(32px, 7vw, 64px);
+  background: linear-gradient(180deg, var(--color-ocre-soft), var(--color-bg));
+}
+.hero__logo {
+  width: min(380px, 85%);
+  aspect-ratio: 1;
+  margin: 0 auto;
+  border-radius: 50%;
+  box-shadow: 0 12px 30px rgba(74, 44, 23, .2);
+}
+
+/* ---------- Carrusel ---------- */
+.carousel { display: flex; align-items: center; gap: 8px; }
+.carousel__viewport { flex: 1; overflow: hidden; }
+
+.carousel__track {
+  display: flex;
+  align-items: stretch;           /* todas las slides con la misma altura */
+  transition: transform .4s ease;
+}
+.carousel__slide {
+  flex: 0 0 50%;                  /* 2 tarjetas visibles */
+  display: flex;
+  padding: 0 8px;
+}
+
+.carousel__btn {
+  flex: none;
+  width: 40px; height: 40px;
+  border: 0; border-radius: 50%;
+  background: var(--color-ocre); color: #fff;
+  font-size: 1.3rem; cursor: pointer;
+}
+.carousel__btn:disabled { opacity: .35; cursor: default; }
+
+/* ---------- Tarjetas (misma altura sin importar el texto) ---------- */
+.card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  text-align: center;
+  background: #fff;
+  border: 2px solid var(--color-ocre-soft);
+  border-radius: var(--radius);
+}
+.card__img {
+  aspect-ratio: 4 / 3;
+  display: grid; place-items: center;
+  font-size: 4rem;
+  background: linear-gradient(135deg, var(--color-ocre-soft), #e9c27a);
+}
+.card__title { margin: 12px 8px 4px; font-size: 1.1rem; }
+.card__text { flex: 1; margin: 0 8px 14px; font-size: .9rem; }  /* absorbe el espacio sobrante */
+
+/* ---------- Botón ---------- */
+.btn {
+  display: inline-block;
+  margin-top: 16px;
+  padding: 14px 28px;
+  border-radius: 999px;
+  background: var(--color-ocre); color: #fff;
+  font-weight: 700; font-size: 1.05rem; text-decoration: none;
+}
+.btn:hover { background: var(--color-brown); }
+
+/* ---------- Footer ---------- */
+.footer {
+  padding: 48px var(--space) calc(32px + env(safe-area-inset-bottom, 0px));
+  background: var(--color-brown);
+  color: var(--color-ocre-soft);
+  text-align: center;
+}
+.footer .section__title { color: #f0c36d; }
+.footer a { color: var(--color-ocre-soft); }
+.footer__list { display: flex; flex-direction: column; gap: 8px; }
+.footer__copy { margin-top: 28px; font-size: .85rem; }
+
+/* ---------- Botón flotante WhatsApp ---------- */
+.wa-float {
+  position: fixed;
+  right: 18px;
+  bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+  z-index: 30;
+  width: 58px; height: 58px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  background: var(--color-wa);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, .3);
+}
+.wa-float svg { width: 32px; height: 32px; fill: #fff; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 720px) {
+  .menu-toggle { display: flex; }
+
+  .nav {
+    position: absolute;
+    top: 100%; left: 0; right: 0;
+    flex-direction: column;
+    gap: 0;
+    background: var(--color-bg);
+    border-bottom: 2px solid var(--color-ocre-soft);
+    max-height: 0;
+    overflow: hidden;
+    visibility: hidden;
+    transition: max-height .3s ease, visibility .3s;
+  }
+  .nav.is-open { max-height: 360px; visibility: visible; }
+  .nav a { padding: 14px var(--space); border-top: 1px solid var(--color-ocre-soft); font-size: 1rem; }
+}
+
+@media (max-width: 520px) {
+  .brand__name { font-size: 1.7rem; }
+  .carousel { gap: 4px; }
+  .carousel__btn { width: 34px; height: 34px; }
+  .carousel__slide { padding: 0 4px; }
+  .card__img { font-size: 3rem; }
+  .card__title { font-size: .95rem; }
+  .card__text { font-size: .82rem; }
+}
